@@ -1,29 +1,710 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Аудан</title>
-    <script>
-        function srec(obm)
-        { obm.res.value=obm.numl.value*obm.numl.value;}
-    </script>
+    <title>al'do restaraunt</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #120D0B;
+            --card-bg: #1C1512;
+            --terracotta: #C85A32;
+            --terracotta-hover: #E06B42;
+            --sand-gold: #D8B282;
+            --text-light: #F4EADE;
+            --text-muted: #A89F91;
+            --font-title: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Навигация */
+        header {
+            background-color: rgba(18, 13, 11, 0.95);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(200, 90, 50, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-title);
+            font-size: 2.4rem;
+            color: var(--sand-gold);
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--terracotta);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--sand-gold);
+            color: var(--sand-gold);
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover {
+            background: var(--sand-gold);
+            color: var(--bg-dark);
+        }
+
+        /* Hero секция с вашей фотографией */
+        .hero {
+            background: linear-gradient(rgba(18, 13, 11, 0.55), rgba(18, 13, 11, 0.85)), 
+                        url('la-terrasse-exterieur.jpg') center/cover no-repeat;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .hero h1 {
+            font-family: var(--font-title);
+            font-size: 4.5rem;
+            color: var(--sand-gold);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 650px;
+            color: var(--text-light);
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background-color: var(--terracotta);
+            color: #FFF;
+            padding: 0.9rem 2.5rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--terracotta-hover);
+        }
+
+        /* Общие заголовки */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            text-align: center;
+            color: var(--sand-gold);
+            margin-bottom: 3rem;
+        }
+
+        /* Выбор языка Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--terracotta);
+            padding: 2.5rem;
+            max-width: 900px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem; right: 1.5rem;
+            font-size: 2rem;
+            color: var(--sand-gold);
+            cursor: pointer;
+        }
+
+        .lang-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .lang-group h4 {
+            color: var(--terracotta);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(200, 90, 50, 0.2);
+            padding-bottom: 0.3rem;
+        }
+
+        .lang-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .lang-list a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .lang-list a:hover {
+            color: var(--sand-gold);
+        }
+
+        /* Поиск бронирования */
+        .booking-search-box {
+            background: var(--card-bg);
+            border: 1px solid rgba(200, 90, 50, 0.3);
+            padding: 3rem;
+            border-radius: 8px;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .booking-search-box p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 3rem; }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            color: var(--sand-gold);
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+        }
+
+        .form-group input {
+            background: var(--bg-dark);
+            border: 1px solid rgba(200, 90, 50, 0.3);
+            padding: 0.8rem;
+            color: var(--text-light);
+            border-radius: 4px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--terracotta);
+        }
+
+        /* Еда и напитки */
+        .menu-category-title {
+            font-family: var(--font-title);
+            font-size: 2.2rem;
+            color: var(--terracotta);
+            margin: 3rem 0 1.5rem;
+            border-bottom: 1px solid rgba(200, 90, 50, 0.2);
+            padding-bottom: 0.5rem;
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .food-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(200, 90, 50, 0.15);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .food-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--terracotta);
+        }
+
+        .food-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .food-info {
+            padding: 1.5rem;
+        }
+
+        .food-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .food-title {
+            font-family: var(--font-title);
+            font-size: 1.4rem;
+            color: var(--sand-gold);
+        }
+
+        .food-price {
+            color: var(--terracotta);
+            font-weight: 600;
+        }
+
+        .food-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Локации и Контакты */
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(200, 90, 50, 0.2);
+            text-align: center;
+        }
+
+        .contact-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            color: var(--sand-gold);
+            margin-bottom: 1rem;
+        }
+
+        .phone-link {
+            color: var(--terracotta);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        /* Отзывы */
+        .reviews-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .reviews-layout { grid-template-columns: 1fr; }
+        }
+
+        .review-input, .review-textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--card-bg);
+            border: 1px solid rgba(200, 90, 50, 0.3);
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+
+        .review-card {
+            background: var(--card-bg);
+            padding: 1.2rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--terracotta);
+        }
+
+        .review-author {
+            color: var(--sand-gold);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Подвал */
+        footer {
+            background-color: #0A0706;
+            text-align: center;
+            padding: 2.5rem;
+            border-top: 1px solid rgba(200, 90, 50, 0.2);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .founder-tag {
+            color: var(--sand-gold);
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+    </style>
 </head>
 <body>
-    <h2>Квадраттың ауданын есептеу</h2>
-    <form name="forml">Қабырғасының ұзындығы:<input type="text" size="8" name="numl" onchange="srec(forml)">
-        <hr> 
-        Ауданы:<input type="text" size="8" name="res">
-        <hr>
-        <input type="reset" value="жаңарту">
-    </form>
 
+    <header>
+        <nav>
+            <a href="#" class="logo">Al'dO</a>
+            <ul class="nav-links">
+                <li><a href="#menu">Еда и Напитки</a></li>
+                <li><a href="#booking">Искать Бронирование</a></li>
+                <li><a href="#contacts">Контакты</a></li>
+                <li><a href="#reviews">Отзывы</a></li>
+                <li><button class="lang-btn" onclick="toggleModal()">Язык / Language</button></li>
+            </ul>
+        </nav>
+    </header>
 
+    <div class="hero">
+        <h1>Al'dO RESTAURANT</h1>
+        <p>Атмосфера средиземноморской террасы и изысканная кухня</p>
+        <a href="#booking-form-section" class="btn-primary">Забронировать Столик</a>
+    </div>
 
+    <div class="modal" id="langModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="toggleModal()">&times;</span>
+            <h3 style="font-family: var(--font-title); font-size: 2rem; color: var(--sand-gold); margin-bottom: 1.5rem;">Выберите предпочитаемый язык</h3>
+            
+            <div class="lang-group">
+                <h4>СЕВЕРНАЯ И ЮЖНАЯ АМЕРИКА</h4>
+                <div class="lang-list">
+                    <a href="#">English</a><a href="#">Español</a><a href="#">Français</a><a href="#">Português</a>
+                </div>
+            </div>
 
+            <div class="lang-group">
+                <h4>АЗИЯ И ОКЕАНИЯ</h4>
+                <div class="lang-list">
+                    <a href="#">English</a><a href="#">Bahasa Indonesia</a><a href="#">简体中文</a><a href="#">繁體中文</a>
+                    <a href="#">日本語</a><a href="#">한국어</a><a href="#">ภาษาไทย</a><a href="#">Tiếng Việt</a><a href="#">हिंदी</a>
+                </div>
+            </div>
 
+            <div class="lang-group">
+                <h4>МЕЖДУНАРОДНЫЙ</h4>
+                <div class="lang-list">
+                    <a href="#">English</a><a href="#">العربية</a>
+                </div>
+            </div>
 
+            <div class="lang-group">
+                <h4>ЕВРОПА</h4>
+                <div class="lang-list">
+                    <a href="#">Dansk</a><a href="#">Deutsch</a><a href="#">Español</a><a href="#">Français</a>
+                    <a href="#">Ελληνικά</a><a href="#">Italiano</a><a href="#">Nederlands</a><a href="#">Norsk</a>
+                    <a href="#">Русский</a><a href="#">Português</a><a href="#">Polski</a><a href="#">Suomi</a>
+                    <a href="#">Svenska</a><a href="#">Türkçe</a><a href="#">English</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <section id="booking-form-section">
+        <h2 class="section-title">Забронировать Столик</h2>
+        <div class="booking-search-box">
+            <p>Заполните форму для быстрой брони. Данные автоматически отправятся администратору в WhatsApp.</p>
+            <form id="whatsappForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Имя</label>
+                        <input type="text" id="wName" required placeholder="Введите ваше имя">
+                    </div>
+                    <div class="form-group">
+                        <label>Дата и время</label>
+                        <input type="datetime-local" id="wDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Количество гостей</label>
+                        <input type="number" id="wGuests" min="1" value="2" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Город</label>
+                        <select id="wCity" style="background: var(--bg-dark); border: 1px solid rgba(200, 90, 50, 0.3); padding: 0.8rem; color: var(--text-light); border-radius: 4px;">
+                            <option value="Астана">г. Астана</option>
+                            <option value="Алматы">г. Алматы</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1.5rem;">Забронировать через WhatsApp</button>
+            </form>
+        </div>
+    </section>
 
+    <section id="booking">
+        <h2 class="section-title">Искать бронирование</h2>
+        <div class="booking-search-box">
+            <p>Заполните эту форму, чтобы просмотреть, изменить или отменить бронирование. Все поля обязательны для заполнения.</p>
+            <form onsubmit="event.preventDefault(); alert('Поиск бронирования выполняется...');">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Номер подтверждения</label>
+                        <input type="text" required placeholder="Например: ALD-9482">
+                    </div>
+                    <div class="form-group">
+                        <label>Дата заезда</label>
+                        <input type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Имя при бронировании</label>
+                        <input type="text" required placeholder="Имя">
+                    </div>
+                    <div class="form-group">
+                        <label>Фамилия, указанная в бронировании</label>
+                        <input type="text" required placeholder="Фамилия">
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1.5rem;">Найти бронирование</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="menu">
+        <h2 class="section-title">Еда и Напитки</h2>
+
+        <h3 class="menu-category-title">Салаты и Закуски</h3>
+        <div class="food-grid">
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80" class="food-img" alt="Салат">
+                <div class="food-info">
+                    <div class="food-header">
+                        <span class="food-title">Греческий Классический</span>
+                        <span class="food-price">3 800 ₸</span>
+                    </div>
+                    <div class="food-desc">Спелые томаты, сыр Фета, оливки Каламата, свежий базилик и оливковое масло.</div>
+                </div>
+            </div>
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?auto=format&fit=crop&w=600&q=80" class="food-img" alt="Закуска">
+                <div class="food-info">
+                    <div class="food-header">
+                        <span class="food-title">Карпаччо из Осьминога</span>
+                        <span class="food-price">6 500 ₸</span>
+                    </div>
+                    <div class="food-desc">Тонко нарезанный осьминог с каперсами, руколой и лимонной заправкой.</div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="menu-category-title">Первые и Вторые Блюда</h3>
+        <div class="food-grid">
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80" class="food-img" alt="Суп">
+                <div class="food-info">
+                    <div class="food-header">
+                        <span class="food-title">Суп Буйабес</span>
+                        <span class="food-price">5 900 ₸</span>
+                    </div>
+                    <div class="food-desc">Традиционный марсельский рыбный суп с морепродуктами и соусом Руй.</div>
+                </div>
+            </div>
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80" class="food-img" alt="Паэлья">
+                <div class="food-info">
+                    <div class="food-header">
+                        <span class="food-title">Средиземноморская Паэлья</span>
+                        <span class="food-price">8 400 ₸</span>
+                    </div>
+                    <div class="food-desc">Шафрановый рис с гигантскими креветками, мидиями и кальмарами.</div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="menu-category-title">Коктейли, Напитки и Алкоголь</h3>
+        <div class="food-grid">
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80" class="food-img" alt="Коктейль">
+                <div class="food-info">
+                    <div class="food-header">
+                        <span class="food-title">Aperol Spritz</span>
+                        <span class="food-price">3 500 ₸</span>
+                    </div>
+                    <div class="food-desc">Aperol, просекко, содовая и апельсиновая долька.</div>
+                </div>
+            </div>
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80" class="food-img" alt="Лимонад">
+                <div class="food-info">
+                    <div class="food-header">
+                        <span class="food-title">Домашний Цитрусовый Лимонад</span>
+                        <span class="food-price">2 200 ₸</span>
+                    </div>
+                    <div class="food-desc">Освежающий напиток из свежих сицилийских апельсинов и мяты.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacts">
+        <h2 class="section-title">Контакты и Локации</h2>
+        <div class="contacts-grid">
+            <div class="contact-card">
+                <h3>г. Астана</h3>
+                <p style="color: var(--text-muted);">ул. Достык, 16</p>
+                <p style="margin-top: 1rem; font-size: 0.85rem;">Бронирование столов:</p>
+                <a href="tel:+77714814209" class="phone-link">+7 771 481 4209</a>
+            </div>
+            <div class="contact-card">
+                <h3>г. Алматы</h3>
+                <p style="color: var(--text-muted);">пр. Достык, 118</p>
+                <p style="margin-top: 1rem; font-size: 0.85rem;">Бронирование столов:</p>
+                <a href="tel:+77714814209" class="phone-link">+7 771 481 4209</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews">
+        <h2 class="section-title">Книга Отзывов</h2>
+        <div class="reviews-layout">
+            <div>
+                <h3 style="color: var(--sand-gold); margin-bottom: 1rem; font-family: var(--font-title); font-size: 1.8rem;">Оставить отзыв</h3>
+                <form id="reviewForm">
+                    <input type="text" class="review-input" id="rName" placeholder="Ваше имя" required>
+                    <textarea class="review-textarea" id="rText" rows="4" placeholder="Ваш отзыв..." required></textarea>
+                    <button type="submit" class="btn-primary">Отправить</button>
+                </form>
+            </div>
+
+            <div>
+                <h3 style="color: var(--sand-gold); margin-bottom: 1rem; font-family: var(--font-title); font-size: 1.8rem;">Отзывы гостей</h3>
+                <div id="reviewsContainer">
+                    <div class="review-card">
+                        <div class="review-author">Арман (г. Астана)</div>
+                        <div>Невероятная атмосфера на террасе! Подача блюд и сервировка на высшем уровне.</div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-author">София (г. Алматы)</div>
+                        <div>Осьминог и коктейли просто идеальные. Обязательно придем еще!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Al'dO Restaurant. Все права защищены.</p>
+        <div class="founder-tag">Founder: Zhanazhanov Aldiyar</div>
+    </footer>
+
+    <script>
+        // Переключение языкового окна
+        function toggleModal() {
+            const modal = document.getElementById('langModal');
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        // Автоматическая отправка бронирования на WhatsApp
+        document.getElementById('whatsappForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('wName').value;
+            const date = document.getElementById('wDate').value;
+            const guests = document.getElementById('wGuests').value;
+            const city = document.getElementById('wCity').value;
+
+            const message = `Здравствуйте! Хочу забронировать столик в Al'dO Restaurant.\n\nИмя: ${name}\nГород: ${city}\nДата и время: ${date}\nКоличество гостей: ${guests}`;
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Отправка на ваш WhatsApp
+            window.open(`https://wa.me/77714814209?text=${encodedMessage}`, '_blank');
+        });
+
+        // Добавление отзывов
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('rName').value;
+            const text = document.getElementById('rText').value;
+
+            const card = document.createElement('div');
+            card.className = 'review-card';
+            card.innerHTML = `<div class="review-author">${name}</div><div>${text}</div>`;
+            
+            document.getElementById('reviewsContainer').prepend(card);
+            document.getElementById('rName').value = '';
+            document.getElementById('rText').value = '';
+            alert('Спасибо за ваш отзыв!');
+        });
+    </script>
 </body>
 </html>
