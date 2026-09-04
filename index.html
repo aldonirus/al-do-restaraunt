@@ -19,6 +19,12 @@
     <!-- Шапка -->
     <header>
         <a href="#" class="logo">Al'dO</a>
+        
+        <!-- КНОПКА КОРЗИНЫ (добавили) -->
+        <button id="cart-toggle-btn" class="cart-btn" onclick="toggleCartModal(true)" data-key="nav_cart">
+            Корзина (0)
+        </button>
+
         <button class="burger-btn" onclick="toggleNav()"><i class="fa-solid fa-bars"></i></button>
         <div class="nav-links" id="navLinks">
             <a href="#menu" onclick="toggleNav()" data-key="nav_menu">Еда и Напитки</a>
@@ -69,49 +75,51 @@
         </div>
     </section>
 
-    <!-- Мобильное Меню -->
-    <section id="menu">
-        <h2 class="section-title" data-key="title_menu">Еда и Напитки</h2>
+   <!-- Мобильное Меню -->
+<section id="menu">
+    <h2 class="section-title" data-key="title_menu">Еда и Напитки</h2>
 
-        <h3 class="menu-category-title" data-key="cat_starters">Закуски & Салаты</h3>
-        <div class="food-grid">
-            <div class="food-card">
-                <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=300&q=80" class="food-img" alt="Салат">
-                <div class="food-info">
-                    <div class="food-header">
-                        <span class="food-title" data-key="dish1_title">Греческий Салат</span>
-                        <span class="food-price">3 800 ₸</span>
-                    </div>
-                    <div class="food-desc" data-key="dish1_desc">Сыр Фета, томаты, оливки Каламата, базилик.</div>
+    <h3 class="menu-category-title" data-key="cat_starters">Закуски & Салаты</h3>
+    <div class="food-grid">
+        <div class="food-card">
+            <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=300&q=80" class="food-img" alt="Салат">
+            <div class="food-info">
+                <div class="food-header">
+                    <span class="food-title" data-key="dish1_title">Греческий Салат</span>
+                    <span class="food-price">3 800 ₸</span>
                 </div>
-            </div>
-            <div class="food-card">
-                <img src="https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?auto=format&fit=crop&w=300&q=80" class="food-img" alt="Осьминог">
-                <div class="food-info">
-                    <div class="food-header">
-                        <span class="food-title" data-key="dish2_title">Карпаччо Осьминог</span>
-                        <span class="food-price">6 500 ₸</span>
-                    </div>
-                    <div class="food-desc" data-key="dish2_desc">Тонкие ломтики осьминога с каперсами и лимоном.</div>
-                </div>
+                <div class="food-desc" data-key="dish1_desc">Сыр Фета, томаты, оливки Каламата, базилик.</div>
+                <button class="add-to-cart-btn" onclick="addToCart('Греческий Салат', 3800)" data-key="add_btn">В корзину</button>
             </div>
         </div>
-
-        <h3 class="menu-category-title" data-key="cat_mains">Горячее</h3>
-        <div class="food-grid">
-            <div class="food-card">
-                <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=300&q=80" class="food-img" alt="Паэлья">
-                <div class="food-info">
-                    <div class="food-header">
-                        <span class="food-title" data-key="dish3_title">Паэлья с морепродуктами</span>
-                        <span class="food-price">8 400 ₸</span>
-                    </div>
-                    <div class="food-desc" data-key="dish3_desc">Рис с шафраном, гигантские креветки и мидии.</div>
+        <div class="food-card">
+            <img src="https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?auto=format&fit=crop&w=300&q=80" class="food-img" alt="Осьминог">
+            <div class="food-info">
+                <div class="food-header">
+                    <span class="food-title" data-key="dish2_title">Карпаччо Осьминог</span>
+                    <span class="food-price">6 500 ₸</span>
                 </div>
+                <div class="food-desc" data-key="dish2_desc">Тонкие ломтики осьминога с каперсами и лимоном.</div>
+                <button class="add-to-cart-btn" onclick="addToCart('Карпаччо Осьминог', 6500)" data-key="add_btn">В корзину</button>
             </div>
         </div>
-    </section>
+    </div>
 
+    <h3 class="menu-category-title" data-key="cat_mains">Горячее</h3>
+    <div class="food-grid">
+        <div class="food-card">
+            <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=300&q=80" class="food-img" alt="Паэлья">
+            <div class="food-info">
+                <div class="food-header">
+                    <span class="food-title" data-key="dish3_title">Паэлья с морепродуктами</span>
+                    <span class="food-price">8 400 ₸</span>
+                </div>
+                <div class="food-desc" data-key="dish3_desc">Рис с шафраном, гигантские креветки и мидии.</div>
+                <button class="add-to-cart-btn" onclick="addToCart('Паэлья с морепродуктами', 8400)" data-key="add_btn">В корзину</button>
+            </div>
+        </div>
+    </div>
+</section>
     <!-- Контакты -->
     <section id="contacts">
         <h2 class="section-title" data-key="title_contacts">Контакты</h2>
@@ -161,5 +169,20 @@
 
     <!-- Подключение JavaScript файла -->
     <script src="script.js"></script>
+    <div id="cart-modal" class="modal-overlay" style="display: none;">
+  <div class="modal-content">
+    <h2 data-key="cart_title">Корзина</h2>
+    <p class="waiter-note" data-key="waiter_note">Покажите этот экран официанту для оформления заказа</p>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-total">
+      <span data-key="cart_total">Итого</span>: <strong id="total-price-val">0 ₸</strong>
+    </div>
+
+    <button class="close-btn" onclick="toggleCartModal(false)" data-key="close_btn">Закрыть</button>
+  </div>
+</div>
+
 </body>
 </html>
