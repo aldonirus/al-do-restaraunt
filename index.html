@@ -2,361 +2,17 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <!-- Метатег для идеального отображения на всех мобильных телефонах -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>al'do restaraunt</title>
     
-    <!-- Подключение шрифтов и иконок FontAwesome -->
+    <!-- Подключение внешних шрифтов и иконок -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <style>
-        :root {
-            --bg-dark: #120D0B;
-            --card-bg: #1C1512;
-            --terracotta: #C85A32;
-            --terracotta-hover: #E06B42;
-            --sand-gold: #D8B282;
-            --text-light: #F4EADE;
-            --text-muted: #A89F91;
-            --font-title: 'Cormorant Garamond', serif;
-            --font-body: 'Montserrat', sans-serif;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.5;
-            padding-bottom: 70px; /* Отступ под нижнюю мобильную панель */
-        }
-
-        /* Шапка сайта */
-        header {
-            background-color: rgba(18, 13, 11, 0.95);
-            padding: 0.8rem 1.2rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(200, 90, 50, 0.3);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: var(--font-title);
-            font-size: 1.8rem;
-            color: var(--sand-gold);
-            text-decoration: none;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-        }
-
-        /* Бургер-меню для мобилок */
-        .burger-btn {
-            background: none;
-            border: none;
-            color: var(--sand-gold);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        .nav-links {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: var(--card-bg);
-            flex-direction: column;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--terracotta);
-        }
-
-        .nav-links.active {
-            display: flex;
-        }
-
-        .nav-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            padding: 0.8rem 1.5rem;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 1px solid rgba(200, 90, 50, 0.1);
-        }
-
-        /* Баннер */
-        .hero {
-            background: linear-gradient(rgba(18, 13, 11, 0.6), rgba(18, 13, 11, 0.9)), 
-                        url('la-terrasse-exterieur.jpg') center/cover no-repeat;
-            min-height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem 1rem;
-        }
-
-        .hero h1 {
-            font-family: var(--font-title);
-            font-size: 2.8rem;
-            color: var(--sand-gold);
-            margin-bottom: 0.5rem;
-        }
-
-        .hero p {
-            font-size: 1rem;
-            color: var(--text-light);
-            margin-bottom: 1.5rem;
-            font-weight: 300;
-        }
-
-        .btn-primary {
-            background-color: var(--terracotta);
-            color: #FFF;
-            padding: 0.9rem 1.8rem;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border-radius: 6px;
-            display: inline-block;
-            border: none;
-            width: 100%;
-            max-width: 280px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(200, 90, 50, 0.4);
-        }
-
-        /* Секции */
-        section {
-            padding: 2.5rem 1rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-family: var(--font-title);
-            font-size: 2.2rem;
-            text-align: center;
-            color: var(--sand-gold);
-            margin-bottom: 1.5rem;
-        }
-
-        /* Формы бронирования */
-        .booking-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(200, 90, 50, 0.3);
-            padding: 1.5rem;
-            border-radius: 12px;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--sand-gold);
-            margin-bottom: 0.3rem;
-            text-transform: uppercase;
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            background: var(--bg-dark);
-            border: 1px solid rgba(200, 90, 50, 0.3);
-            padding: 0.8rem;
-            color: var(--text-light);
-            border-radius: 6px;
-            font-size: 1rem;
-        }
-
-        /* Мобильное Меню с Карточками */
-        .menu-category-title {
-            font-family: var(--font-title);
-            font-size: 1.8rem;
-            color: var(--terracotta);
-            margin: 2rem 0 1rem;
-            border-bottom: 1px solid rgba(200, 90, 50, 0.2);
-            padding-bottom: 0.3rem;
-        }
-
-        .food-grid {
-            display: grid;
-            grid-template-columns: 1fr; /* 1 колонка для телефонов */
-            gap: 1.2rem;
-        }
-
-        .food-card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid rgba(200, 90, 50, 0.15);
-            display: flex;
-            flex-direction: row; /* Горизонтальные карточки на мобилке */
-            height: 110px;
-        }
-
-        .food-img {
-            width: 110px;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .food-info {
-            padding: 0.8rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .food-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 0.3rem;
-        }
-
-        .food-title {
-            font-family: var(--font-title);
-            font-size: 1.1rem;
-            color: var(--sand-gold);
-            line-height: 1.2;
-        }
-
-        .food-price {
-            color: var(--terracotta);
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-left: 0.5rem;
-        }
-
-        .food-desc {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* Нижняя навигационная панель (App Style) */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #0D0907;
-            border-top: 1px solid rgba(200, 90, 50, 0.3);
-            display: flex;
-            justify-content: space-around;
-            padding: 0.6rem 0;
-            z-index: 2000;
-        }
-
-        .bottom-nav-item {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.7rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.2rem;
-        }
-
-        .bottom-nav-item i {
-            font-size: 1.2rem;
-        }
-
-        .bottom-nav-item.active, .bottom-nav-item:hover {
-            color: var(--sand-gold);
-        }
-
-        /* Плавающая кнопка WhatsApp */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 80px;
-            right: 15px;
-            background-color: #25d366;
-            color: #FFF;
-            width: 50px;
-            height: 50px;
-            border-radius: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.8rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            z-index: 1500;
-            text-decoration: none;
-        }
-
-        /* Модальное окно выбора языка */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 3000;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            border: 1px solid var(--terracotta);
-            padding: 1.5rem;
-            width: 100%;
-            max-height: 80vh;
-            overflow-y: auto;
-            border-radius: 10px;
-        }
-
-        .lang-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.6rem;
-            margin-bottom: 1rem;
-        }
-
-        .lang-list a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 0.85rem;
-            padding: 0.4rem;
-            background: var(--bg-dark);
-            border-radius: 4px;
-            text-align: center;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            border-top: 1px solid rgba(200, 90, 50, 0.1);
-        }
-    </style>
+    <!-- Подключение CSS файла -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -365,10 +21,10 @@
         <a href="#" class="logo">Al'dO</a>
         <button class="burger-btn" onclick="toggleNav()"><i class="fa-solid fa-bars"></i></button>
         <div class="nav-links" id="navLinks">
-            <a href="#menu" onclick="toggleNav()">Еда и Напитки</a>
-            <a href="#booking-section" onclick="toggleNav()">Забронировать</a>
-            <a href="#contacts" onclick="toggleNav()">Контакты</a>
-            <a href="#" onclick="toggleModal(); toggleNav();">Язык / Language</a>
+            <a href="#menu" onclick="toggleNav()" data-key="nav_menu">Еда и Напитки</a>
+            <a href="#booking-section" onclick="toggleNav()" data-key="nav_booking">Забронировать</a>
+            <a href="#contacts" onclick="toggleNav()" data-key="nav_contacts">Контакты</a>
+            <a href="#" onclick="toggleModal(); toggleNav();" data-key="nav_lang">Язык / Language</a>
         </div>
     </header>
 
@@ -380,77 +36,77 @@
     <!-- Главная секция -->
     <div class="hero">
         <h1>Al'dO RESTAURANT</h1>
-        <p>Атмосфера средиземноморской террасы</p>
-        <a href="#booking-section" class="btn-primary">Забронировать столик</a>
+        <p data-key="hero_subtitle">Атмосфера средиземноморской террасы</p>
+        <a href="#booking-section" class="btn-primary" data-key="hero_btn">Забронировать столик</a>
     </div>
 
-    <!-- Быстрая бронь в WhatsApp -->
+    <!-- Бронирование -->
     <section id="booking-section">
-        <h2 class="section-title">Бронирование</h2>
+        <h2 class="section-title" data-key="title_booking">Бронирование</h2>
         <div class="booking-card">
             <form id="whatsappForm">
                 <div class="form-group">
-                    <label>Ваше Имя</label>
+                    <label data-key="lbl_name">Ваше Имя</label>
                     <input type="text" id="wName" required placeholder="Арман">
                 </div>
                 <div class="form-group">
-                    <label>Дата и время</label>
+                    <label data-key="lbl_date">Дата и время</label>
                     <input type="datetime-local" id="wDate" required>
                 </div>
                 <div class="form-group">
-                    <label>Гостей</label>
+                    <label data-key="lbl_guests">Гостей</label>
                     <input type="number" id="wGuests" min="1" value="2" required>
                 </div>
                 <div class="form-group">
-                    <label>Город</label>
+                    <label data-key="lbl_city">Город</label>
                     <select id="wCity">
-                        <option value="Астана">г. Астана</option>
-                        <option value="Алматы">г. Алматы</option>
+                        <option value="Астана" data-key="opt_astana">г. Астана</option>
+                        <option value="Алматы" data-key="opt_almaty">г. Алматы</option>
                     </select>
                 </div>
-                <button type="submit" class="btn-primary" style="margin-top: 0.5rem;">Забронировать в WhatsApp</button>
+                <button type="submit" class="btn-primary" style="margin-top: 0.5rem;" data-key="btn_wa_submit">Забронировать в WhatsApp</button>
             </form>
         </div>
     </section>
 
     <!-- Мобильное Меню -->
     <section id="menu">
-        <h2 class="section-title">Еда и Напитки</h2>
+        <h2 class="section-title" data-key="title_menu">Еда и Напитки</h2>
 
-        <h3 class="menu-category-title">Закуски & Салаты</h3>
+        <h3 class="menu-category-title" data-key="cat_starters">Закуски & Салаты</h3>
         <div class="food-grid">
             <div class="food-card">
                 <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=300&q=80" class="food-img" alt="Салат">
                 <div class="food-info">
                     <div class="food-header">
-                        <span class="food-title">Греческий Салат</span>
+                        <span class="food-title" data-key="dish1_title">Греческий Салат</span>
                         <span class="food-price">3 800 ₸</span>
                     </div>
-                    <div class="food-desc">Сыр Фета, томаты, оливки Каламата, базилик.</div>
+                    <div class="food-desc" data-key="dish1_desc">Сыр Фета, томаты, оливки Каламата, базилик.</div>
                 </div>
             </div>
             <div class="food-card">
                 <img src="https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?auto=format&fit=crop&w=300&q=80" class="food-img" alt="Осьминог">
                 <div class="food-info">
                     <div class="food-header">
-                        <span class="food-title">Карпаччо Осьминог</span>
+                        <span class="food-title" data-key="dish2_title">Карпаччо Осьминог</span>
                         <span class="food-price">6 500 ₸</span>
                     </div>
-                    <div class="food-desc">Тонкие ломтики осьминога с каперсами и лимоном.</div>
+                    <div class="food-desc" data-key="dish2_desc">Тонкие ломтики осьминога с каперсами и лимоном.</div>
                 </div>
             </div>
         </div>
 
-        <h3 class="menu-category-title">Горячее</h3>
+        <h3 class="menu-category-title" data-key="cat_mains">Горячее</h3>
         <div class="food-grid">
             <div class="food-card">
                 <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=300&q=80" class="food-img" alt="Паэлья">
                 <div class="food-info">
                     <div class="food-header">
-                        <span class="food-title">Паэлья с морепродуктами</span>
+                        <span class="food-title" data-key="dish3_title">Паэлья с морепродуктами</span>
                         <span class="food-price">8 400 ₸</span>
                     </div>
-                    <div class="food-desc">Рис с шафраном, гигантские креветки и мидии.</div>
+                    <div class="food-desc" data-key="dish3_desc">Рис с шафраном, гигантские креветки и мидии.</div>
                 </div>
             </div>
         </div>
@@ -458,13 +114,13 @@
 
     <!-- Контакты -->
     <section id="contacts">
-        <h2 class="section-title">Контакты</h2>
+        <h2 class="section-title" data-key="title_contacts">Контакты</h2>
         <div class="booking-card" style="text-align: center;">
-            <p style="color: var(--sand-gold); font-weight: 600;">г. Астана</p>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">ул. Достык, 16</p>
+            <p style="color: var(--sand-gold); font-weight: 600;" data-key="city_astana">г. Астана</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;" data-key="addr_astana">ул. Достык, 16</p>
             <br>
-            <p style="color: var(--sand-gold); font-weight: 600;">г. Алматы</p>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">пр. Достык, 118</p>
+            <p style="color: var(--sand-gold); font-weight: 600;" data-key="city_almaty">г. Алматы</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;" data-key="addr_almaty">пр. Достык, 118</p>
             <br>
             <a href="tel:+77714814209" style="color: var(--terracotta); text-decoration: none; font-weight: 600; font-size: 1.1rem;">+7 771 481 4209</a>
         </div>
@@ -474,49 +130,36 @@
     <div class="modal" id="langModal">
         <div class="modal-content">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                <h3 style="color: var(--sand-gold); font-family: var(--font-title); font-size: 1.5rem;">Выберите язык</h3>
+                <h3 style="color: var(--sand-gold); font-family: var(--font-title); font-size: 1.5rem;">Выберите язык / Select Language</h3>
                 <span onclick="toggleModal()" style="color: var(--sand-gold); font-size: 1.8rem; cursor: pointer;">&times;</span>
             </div>
             <div class="lang-list">
-                <a href="#">Русский</a><a href="#">English</a><a href="#">Español</a><a href="#">Français</a>
-                <a href="#">Deutsch</a><a href="#">Italiano</a><a href="#">Türkçe</a><a href="#">Қазақша</a>
+                <button class="lang-btn" onclick="setLanguage('ru')">Русский</button>
+                <button class="lang-btn" onclick="setLanguage('kk')">Қазақша</button>
+                <button class="lang-btn" onclick="setLanguage('en')">English</button>
+                <button class="lang-btn" onclick="setLanguage('es')">Español</button>
+                <button class="lang-btn" onclick="setLanguage('fr')">Français</button>
+                <button class="lang-btn" onclick="setLanguage('de')">Deutsch</button>
+                <button class="lang-btn" onclick="setLanguage('it')">Italiano</button>
+                <button class="lang-btn" onclick="setLanguage('tr')">Türkçe</button>
             </div>
         </div>
     </div>
 
-    <!-- Нижняя мобильная панель навигации -->
+    <!-- Нижняя мобильная панель -->
     <div class="bottom-nav">
-        <a href="#" class="bottom-nav-item active"><i class="fa-solid fa-house"></i>Главная</a>
-        <a href="#menu" class="bottom-nav-item"><i class="fa-solid fa-utensils"></i>Меню</a>
-        <a href="#booking-section" class="bottom-nav-item"><i class="fa-solid fa-calendar-check"></i>Бронь</a>
-        <a href="#contacts" class="bottom-nav-item"><i class="fa-solid fa-location-dot"></i>Локации</a>
+        <a href="#" class="bottom-nav-item active"><i class="fa-solid fa-house"></i><span data-key="bnav_home">Главная</span></a>
+        <a href="#menu" class="bottom-nav-item"><i class="fa-solid fa-utensils"></i><span data-key="bnav_menu">Меню</span></a>
+        <a href="#booking-section" class="bottom-nav-item"><i class="fa-solid fa-calendar-check"></i><span data-key="bnav_book">Бронь</span></a>
+        <a href="#contacts" class="bottom-nav-item"><i class="fa-solid fa-location-dot"></i><span data-key="bnav_loc">Локации</span></a>
     </div>
 
-    <!-- <footer> -->
+    <footer>
         <p>&copy; 2026 Al'dO Restaurant</p>
         <p style="color: var(--sand-gold); margin-top: 0.3rem;">Founder: Zhanazhanov Aldiyar</p>
     </footer>
 
-    <script>
-        function toggleNav() {
-            document.getElementById('navLinks').classList.toggle('active');
-        }
-
-        function toggleModal() {
-            const modal = document.getElementById('langModal');
-            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
-        }
-
-        document.getElementById('whatsappForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('wName').value;
-            const date = document.getElementById('wDate').value;
-            const guests = document.getElementById('wGuests').value;
-            const city = document.getElementById('wCity').value;
-
-            const message = `Здравствуйте! Хочу забронировать столик в Al'dO Restaurant.\n\nИмя: ${name}\nГород: ${city}\nДата и время: ${date}\nГостей: ${guests}`;
-            window.open(`https://wa.me/77714814209?text=${encodeURIComponent(message)}`, '_blank');
-        });
-    </script>
+    <!-- Подключение JavaScript файла -->
+    <script src="script.js"></script>
 </body>
 </html>
